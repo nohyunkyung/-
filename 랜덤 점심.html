@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>랜덤 점심</title>
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,width=device-width,shrink-to-fit=no" />
+<meta name="title" content="랜덤 점심">
+<meta name="description" content="대신 골라드립니다. 당첨된 대로 드셔야 합니다.">
+<meta property="og:image" content="https://random.coroke.net/ogimage.png">
+<link rel="apple-touch-icon" href="https://random.coroke.net/icon.png" />
+<link rel="image_src" href="https://random.coroke.net/icon.png" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/hanna.css" />
+<style type="text/css">
+
+body{
+    margin:40px;
+    background:#acac7c;
+    font-family:'Hanna',serif;
+    background:#acdc7c
+}
+
+h1{
+    color:#fff;
+    text-align:center;
+    font-size:4em;
+    font-weight:normal;
+}
+
+p{
+    font-size:1.5em;
+    color:#fff;
+    text-align:center;
+}
+
+a{
+    text-decoration:none;
+    cursor:pointer;
+}
+
+.reload{
+    color:#fff;
+    font-size:1.5em;
+    text-align:center;
+    display:none;
+    padding:10px;
+}
+
+#l_lunch{
+    padding:50px 0;
+}
+
+#l_lunch a{
+    text-align:center;
+    display:none;
+    width:200px;
+    margin:15px auto;
+    color:#505050;
+    background:#fff;
+    padding:15px;
+    border-radius:3px;
+    box-shadow:0 0 5px rgba(0,0,0,.1);
+    font-size:2em;
+}
+
+footer{
+    color:#333;
+    font-size:11px;
+    text-align:center;
+    font-family:Helvetica,'Trebuchet MS',Tahoma,sans-serif;
+    padding-top:30px;
+    display:none;
+}
+
+footer p{
+    color:#333;
+    font-size:11px;
+}
+
+footer a{
+    color:#333;
+}
+
+footer a:hover{
+    text-decoration:underline;
+}
+
+
+.share{
+    opacity:0;
+    height:47px;
+    width:100%;
+    text-align:center;
+    margin-bottom:60px;
+}
+
+.share a{
+    color:#fff;
+    font-size:48px;
+    display:inline-block;
+    margin:0 20px;
+}
+
+.share a:hover,
+.reload:hover{
+    color:#333;
+}
+
+body.done .reload,
+body.done footer{
+    display:block;
+}
+
+body.done .share{
+    opacity:1;
+}
+@media all and (max-width:640px) {
+    
+    body{
+        margin:40px 0;
+    }
+
+    h1{
+        font-size:3.3em;
+    }
+
+    #l_lunch{
+        padding:20px 0 30px 0;
+    }
+}
+
+</style>
+</head>
+<body>
+    <h1>랜덤 점심</h1>
+    <p id="msg">대신 골라드립니다</p>
+
+    <div id="l_lunch" class="list">
+<a href="#">한솥</a>
+<a href="#">오니기리</a>
+<a href="#">샐러디</a>
+<a href="#">밀라이스</a>
+<a href="#">보승회관</a>
+<a href="#">모모유부</a>
+<a href="#">뜸들이다</a>
+<a href="#">강다짐</a>
+<a href="#">알촌</a>
+<a href="#">오토김밥</a>
+<a href="#">우리집김밥</a>
+<a href="#">샐러드몬스터</a>
+<a href="#">백소정</a>
+<a href="#">아비꼬</a>
+<a href="#">쿠차라</a>
+<a href="#">서브웨이</a>
+<a href="#">바스버거</a>
+<a href="#">새로운것</a>
+    </div>
+    <div class="share">
+        <a href="#" class="tw"><i class="fa fa-twitter"></i></a>
+        <a href="#" class="fb"><i class="fa fa-facebook"></i></a>
+    </div>
+
+    <a href="#" class="reload">다시 한번!</a>
+
+    <footer>
+        <p class="credit">Developed by <a href="http://rainygirl.com" target="_blank">rainygirl</a></p>
+    </footer>
+
+    <script>//<![CDATA[
+
+// Google Analytics for random.coroke.net
+var _gaq = _gaq || []; _gaq.push(["_setAccount", "UA-30465925-1"]); _gaq.push(["_setDomainName", "random.coroke.net"]); _gaq.push(["_trackPageview"]); (function() { var c = document.createElement("script"); c.type = "text/javascript"; c.async = true; c.src = ("https:" == document.location.protocol ? "https://ssl" : "http://www") + ".google-analytics.com/ga.js"; var d = document.getElementsByTagName("script")[0]; d.parentNode.insertBefore(c, d) })();
+
+
+(function() {
+    var stop = true,
+        msg = document.getElementById('msg'),
+        visibleitem = '',
+        ismobile = (/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase()));
+
+    function share(category) {
+        switch (category) {
+            case 'twitter':
+                var msg = document.title + ' ' + location.href;
+
+                function _() {
+                    var url = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(msg);
+                    window.open(url);
+                }
+                if (ismobile) {
+                    var time = (new Date()).getTime();
+                    window.location.href = 'twitter://post?message=' + encodeURIComponent(msg);
+                    setTimeout(function() {
+                        var now = (new Date()).getTime();
+                        if ((now - time) < 600) _();
+                    }, 500);
+                    return;
+                }
+                _();
+                break;
+            case 'facebook':
+                var url = location.href;
+                window.open('https://www.facebook.com/dialog/feed?app_id=348223775230595&display=popup&caption=' + encodeURIComponent(document.title) + "+" + encodeURIComponent(url) + '&link=' + encodeURIComponent(url) + '&redirect_uri=' + encodeURIComponent(url));;
+                break;
+        }
+    }
+
+    function rolling(id, idx, cnt) {
+        var items = document.querySelectorAll('#' + id + ' a');
+        visibleitem = items[idx].innerText;
+        items.forEach(function(d, i) {
+            d.style.display = i == idx ? 'block' : 'none';
+        });
+        if (!stop) window.setTimeout(function() {
+            rolling(id, idx + 1 >= cnt ? 0 : idx + 1, cnt);
+        }, 50);
+    }
+
+    function launch() {
+        window.scrollTo(0, 0);
+        document.body.className = 'ing';
+        msg.innerHTML = ismobile ? '아무데나 터치하세요' : '아무데나 눌러 고르세요';
+
+        stop = false;
+        rolling('l_lunch', 0, document.querySelectorAll('#l_lunch a').length)
+
+    }
+
+    function choose(e) {
+        if ((!e.keyCode || (e.keyCode == 13 || e.keyCode == 32)) && !stop) {
+
+            e.preventDefault();
+            var domain = window.location.href.replace('http://', '').split('/')[0];
+            stop = true;
+            msg.innerHTML = '이거 드세요!';
+
+            var txt = '랜덤으로 고른 점심메뉴는 ' + '[' + visibleitem + '] 당첨';
+            document.title = txt;
+
+            document.body.className = 'done';
+        }
+    }
+
+    window.onload = function() {
+
+        document.querySelector('.reload').addEventListener('click', function(event) {
+            event.preventDefault();
+            stop = false;
+            launch();
+        });
+        document.querySelector('.tw').addEventListener('click', function(event) {
+            event.preventDefault();
+            share('twitter');
+        });
+        document.querySelector('.fb').addEventListener('click', function(event) {
+            event.preventDefault();
+            share('facebook');
+        });
+
+        ['keydown', 'mousedown', 'touchstart'].forEach(function(d) {
+            document.addEventListener(d, function(event) {
+                choose(event);
+            });
+        })
+        launch();
+    };
+})();
+
+//]]>
+    </script>
+</body></html>
